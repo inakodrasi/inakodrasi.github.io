@@ -1,0 +1,75 @@
+!!! 5
+%html
+  %head
+    = Haml::Engine.new(File.read('_header.haml')).render(Object.new, :title => 'Ina Kodrasi')
+  %body
+    .container#main-container
+      .row#main-row
+        = Haml::Engine.new(File.read('_nav.haml')).render(Object.new, :page => 'index')
+        .col-md-9
+          .starter-template
+            %img#nav-picture(src="images/nav-picture3.jpg" align="right")
+            %h1 Dr. Ina Kodrasi
+            %p.lead
+              Postdoctoral Researcher
+              %br
+              Idiap Research Institute, Martigny, Switzerland
+          .row
+            .col-md-8
+              %p(style="text-align: justify")
+                Ina Kodrasi received the Master of Science degree in Communications, Systems and Electronics in 2010 from
+                %b Jacobs University Bremen, Germany
+                and the PhD degree in 2015 from the
+                %b University of Oldenburg, Germany.
+                From 2010 to 2015 she worked as a researcher at the Signal Processing Group of the
+                %b University of Oldenburg.
+                From 2010 to 2011 she was also with the
+                %b Fraunhofer Institute for Digital Media Technology (IDMT),
+                Project group Hearing, Speech and Audio Technology in Oldenburg where she worked on microphone array beamforming.
+                From 2015 to 2017 she was a postdoctoral researcher at the Signal Processing Group of the
+                %b University of Oldenburg
+                in the field of speech dereverberation and noise reduction.
+                Since December 2017 she is a postdoctoral researcher at the                
+                %a(href="https://www.idiap.ch/en/scientific-research/speech-and-audio-processing" target="_blank") Speech and Audio Processing Group
+                of the
+                %b Idiap Research Institute, Martigny, Switzerland
+                working in the field of signal processing for clinical applications.
+              %h3 News
+              %ul.list-group
+                = Haml::Engine.new(File.read('_news.haml')).render(Object.new)
+            .col-md-4
+              %h4(style="margin-top: 0px") Contact
+              Idiap Research Institute
+              %br
+              Centre du Parc
+              %br
+              Rue Marconi 19
+              %br
+              CH-1920 Martigny
+              %br
+              %i.fa.fa-phone(aria-hidden="true")                
+              +41 27 721 77 94
+              %br
+              %i.fa.fa-fax(aria-hidden="true")
+              +41 27 721 77 12
+              %br
+              %i.fa.fa-envelope(aria-hidden="true")
+              %a(href="mailto:ina.kodrasi@idiap.ch") ina.kodrasi@idiap.ch
+              %br
+              %i.fa.fa-linkedin(aria-hidden="true")
+              %a(href="https://de.linkedin.com/in/ina-kodrasi-023819a8/" target="_blank") LinkedIn
+              %br
+              %i.fa.fa-google(aria-hidden="true")
+              %a(href="https://scholar.google.de/citations?user=q_yoOq4AAAAJ&hl=en" target="_blank") Google Scholar
+              %br
+              %i.fa.fa-globe(aria-hidden="true")
+              %a(href="http://www.idiap.ch" target="_blank") www.idiap.ch
+              %br
+              %br
+              %h4 Research Interests
+              %ul.list-group
+                %li.list-group-item Single-channel and multi-channel dereverberation techniques 
+                %li.list-group-item Microphone array processing for signal enhancement
+                %li.list-group-item Pathological speech processing
+                %li.list-group-item Machine learning
+ 

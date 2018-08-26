@@ -1,0 +1,20 @@
+.col-md-3#left-column
+  %ul.nav.nav-pills.nav-stacked
+    %li(role="presentation"){:class => ("active" if page == "index" )}
+      %a(href="index.html")
+        %i.fa.fa-user(aria-hidden="true")
+        .text
+          About me
+    %li(role="presentation"){:class => ("active" if page == "teaching" )}
+      %a(href="teaching.html")
+        %i.fa.fa-graduation-cap(aria-hidden="true")
+        .text
+          Teaching and Supervision
+    %li(role="presentation"){:class => ("active" if page == "publications" )}
+      %a(href="publications.html")
+        %i.fa.fa-book(aria-hidden="true")
+        .text
+          Publications
+    %center
+      %a(href="http://www.idiap.ch" target="_blank")
+        %img#idiap-logo(src="images/idiap.jpeg")

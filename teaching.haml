@@ -1,0 +1,53 @@
+!!! 5
+%html
+  %head
+    = Haml::Engine.new(File.read('_header.haml')).render(Object.new, :title => 'Ina Kodrasi / Teaching and Supervision')
+  %body
+    .container#main-container
+      .row#main-row
+        = Haml::Engine.new(File.read('_nav.haml')).render(Object.new, :page => "teaching")
+        .col-md-9
+          %h1 Teaching and Supervision
+          %ul.list-group
+            %li.list-group-item
+              %b May 2017 &ndash; Aug 2018
+              Marvin Tammen: Extension and Evaluation of Multi-Channel Diffuse PSD Estimators
+              %br
+              University of Oldenburg, Oldenburg, Germany
+              %span.badge master thesis
+            %li.list-group-item
+              %b Oct 2012 &ndash; Oct 2017
+              Mathematical Methods for Physics and Engineering
+              %br
+              University of Oldenburg, Oldenburg, Germany
+              %span.badge teaching assistant
+            %li.list-group-item
+              %b Oct 2012 &ndash; Oct 2017
+              Selected Topics in Hearing Technology and Audiology
+              %br
+              University of Oldenburg, Oldenburg, Germany
+              %span.badge semester project
+            %li.list-group-item
+              %b May 2012 &ndash; Aug 2012
+              DAAD Rise Internship: Multi-microphone noise reduction and speech dereverberation
+              %br
+              University of Oldenburg, Oldenburg, Germany
+              %span.badge internship
+            %li.list-group-item
+              %b Oct 2011 &ndash; Aug 2013
+              Measuring Instruments and Signal Processing
+              %br
+              University of Oldenburg, Oldenburg, Germany
+              %span.badge teaching assistant
+            %li.list-group-item
+              %b Oct 2010 &ndash; Aug 2013
+              Introductory Laboratory Course in Physics
+              %br
+              University of Oldenburg, Oldenburg, Germany
+              %span.badge teaching assistant
+            %li.list-group-item
+              %b Sep 2008 &ndash; May 2009
+              Probability and Random Signal Processing
+              %br
+              Jacobs University Bremen, Bremen, Germany
+              %span.badge teaching assistant
