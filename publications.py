@@ -42,7 +42,7 @@ def make_article( data ):
     global journals
     global authors
 
-    d = dict_from_tuple( ['authors', 'journal', 'volume', 'number', 'year', 'title', 'pages', 'doi'], data )
+    d = dict_from_tuple( ['authors', 'journal', 'volume', 'number', 'month', 'year', 'title', 'pages', 'doi'], data )
     d['authors'] = [authors[k] for k in d['authors']]
     d['journal'] = journals[d['journal']]
     return d
@@ -135,7 +135,7 @@ def format_haml_incollection( paper, id ):
       {{authors}}
     .pubcite
       %span.label.label-warning Conference Paper {{id}}
-      In {{conf}} ({{shortname}}) | {{city}}, {{country}}, {{month}} {{year}}{{pages}} | Publisher: {{publisher}}{{best}}''')
+      In {{conf}} ({{shortname}}) | {{city}}, {{country}}, {{month}} {{year}}{{pages}}{{publisher}}{{best}}''')
 
     authors = ",\n      ".join( "%s %s" % ( a['firstname'], a['lastname'] ) for a in paper['authors'] )
     authors = authors.replace( "Ina Kodrasi", "%strong Ina Kodrasi" )
@@ -166,7 +166,7 @@ def format_haml_incollection( paper, id ):
                              'year': venue['year'],
                              'external': external,
                              'pages': " | Pages %s" % paper['pages'].replace( "--", "&ndash;" ) if paper['pages'] != "" else "",
-                             'publisher': conf['publisher'],
+                             'publisher': " | Publisher: %s" % conf['publisher'] if conf['publisher'] != "" else "",
                              'best': best} )[1:] )
 
 
@@ -185,6 +185,7 @@ def format_bibtex_article( paper ):
     if paper['volume'] == -1:
         print( "  note      = {in press}," )
     else:
+        print( "  month     = %s,"       % paper['month'] )
         print( "  year      = %d,"       % paper['year'] )
         print( "  volume    = %d,"       % paper['volume'] )
         print( "  number    = {%s},"       % paper['number'] )
@@ -234,7 +235,7 @@ def format_haml_article( paper, id ):
     if paper['volume'] == -1:
         info = ""
     else:
-        info = "%s%s, %s" % ( paper['volume'], number, paper['year'] )
+        info = "%s%s, %s %s" % ( paper['volume'], number, monthnames[paper['month']], paper['year'] )
 
     print( template.render( {'title': paper['title'],
                              'id': id,
@@ -350,7 +351,7 @@ def format_haml_invited( invited ):
 
 monthnames = {'jan': 'January', 'feb': 'February', 'mar': 'March', 'apr': 'April', 'may': 'May', 'jun': 'June', 'jul': 'July', 'aug': 'August', 'sep': 'September', 'oct': 'October', 'nov': 'November', 'dec': 'December'}
 months = ["January", "Feburary", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
-capitalize = []
+capitalize = ["MVDR"]
 replacements = []
 
 conferences_data = [
@@ -480,16 +481,16 @@ confpapers_data = [
 
 article_data = [
     
-    ( ['ik', 'sg', 'sd'], 'itaslp', 21, "9", 2013, 'Regularization for partial multichannel equalization for speech dereverberation', '1879--1890', '' ),
-    ( ['bc', 'ik', 'rr', 'sgl', 'aj', 'tg', 'sd', 'sg'], 'eurasip', 61, "", 2015, 'Combination of MVDR beamforming and single-channel spectral processing for enhancing noisy and reverberant speech', '', '' ),
-    ( ['ik', 'sd'], 'itaslp', 24, "4", 2016, ' Joint Dereverberation and noise reduction based on acoustic multichannel equalization', '680--693', '' ),
-    ( ['ik', 'bc', 'sg', 'sd'], 'jaes', 65, "1/2", 2017, 'Instrumental and perceptual evaluation of dereverberation techniques based on robust acoustic multi-channel equalization', '117--129', '' ),
-    ( ['ik', 'sd'], 'itaslp', 25, "7", 2017, ' Signal-dependent penalty functions for robust acoustic multi-channel equalization', '1512--1525', '' ),
-    ( ['ik', 'sd'], 'eurasip', 11, "", 2018, ' Improving the conditioning of the optimization criterion in acoustic multi-channel equalization using shorter reshaping filters', '', '' ),
-    ( ['ik', 'sd'], 'itaslp', 26, "6", 2018, '  Analysis of eigenvalue decomposition-based late reverberation power spectral density estimation', '1106--1118', '' )
+    ( ['ik', 'sg', 'sd'], 'itaslp', 21, "9", 'sep', 2013, 'Regularization for partial multichannel equalization for speech dereverberation', '1879--1890', '' ),
+    ( ['bc', 'ik', 'rr', 'sgl', 'aj', 'tg', 'sd', 'sg'], 'eurasip', 61, "", 'jul', 2015, 'Combination of MVDR beamforming and single-channel spectral processing for enhancing noisy and reverberant speech', '', '' ),
+    ( ['ik', 'sd'], 'itaslp', 24, "4", 'apr', 2016, ' Joint Dereverberation and noise reduction based on acoustic multichannel equalization', '680--693', '' ),
+    ( ['ik', 'bc', 'sg', 'sd'], 'jaes', 65, "1/2", 'jan', 2017, 'Instrumental and perceptual evaluation of dereverberation techniques based on robust acoustic multi-channel equalization', '117--129', '' ),
+    ( ['ik', 'sd'], 'itaslp', 25, "7", 'jul', 2017, ' Signal-dependent penalty functions for robust acoustic multi-channel equalization', '1512--1525', '' ),
+    ( ['ik', 'sd'], 'eurasip', 11, "", 'feb', 2018, ' Improving the conditioning of the optimization criterion in acoustic multi-channel equalization using shorter reshaping filters', '', '' ),
+    ( ['ik', 'sd'], 'itaslp', 26, "6", 'jun', 2018, '  Analysis of eigenvalue decomposition-based late reverberation power spectral density estimation', '1106--1118', '' )
 ]
 
-best_paper_data = [ ( '2016_date_1', 'c' ), ( '2016_sat', 'c' ) ]
+best_paper_data = [ ( '2013_icassp', 'c' ) ]
 
 news_data = [
     ( 'icassp', 2018 ),
@@ -524,11 +525,11 @@ def cmd_publications():
     print( "}" )
     print()
 
-    for a in articles:
+    for a in reversed(articles):
         format_bibtex_article( a )
         print()
 
-    for c in confpapers:
+    for c in reversed(confpapers):
         format_bibtex_incollection( c, confpapers, "conference" )
         print()
 
